@@ -33,11 +33,17 @@ The upstream catalogue README states that **the catalogue/list is licensed under
 
 That statement is specific to the catalogue/list; it is **not a blanket determination of the licence for every HTML file, stylesheet, script, logo, icon, font, or third-party asset**. Review the relevant upstream source, per-file notices, and applicable terms before reusing or redistributing material. The [upstream authors list](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/AUTHORS) identifies catalogue contributors.
 
-See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for the provenance and licence-review notes recorded for this fork.
+Read the repository's licensing and provenance records:
+
+- [LICENSES.md](./LICENSES.md) — confirmed licence scope and how to handle unverified files.
+- [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) — known provenance and third-party notice guidance.
+- [ASSET_PROVENANCE.md](./ASSET_PROVENANCE.md) — generated-tree inventory and observed differences from upstream.
+
+Rules for this fork:
 
 - Keep applicable upstream copyright and attribution notices intact.
 - Do not claim upstream or third-party work as original work or imply endorsement by upstream maintainers.
-- Follow any applicable attribution and ShareAlike requirements for material covered by CC BY-SA 3.0.
+- Follow applicable attribution and ShareAlike requirements for material covered by CC BY-SA 3.0.
 - A catalogue entry does not grant rights to the listed project's name, logo, code, or other assets.
 - Do not add a root-level licence that purports to relicense all inherited content without a documented rights review.
 
@@ -56,7 +62,7 @@ See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for the provenance and li
 
 ## Verification notes
 
-This repository is a generated-site publication. A successful GitHub Pages deployment confirms that GitHub Pages processed and published the branch; it does not, by itself, prove that the catalogue content is current, all links work, every asset's licence has been reviewed, or the site has passed a security audit.
+This repository is a generated-site publication. A successful GitHub Pages deployment confirms that GitHub Pages processed and published the branch; it does not, by itself, prove that the catalogue content is current, all links work, every asset's licence has been reviewed, or the site has passed a security audit. See [ASSET_PROVENANCE.md](./ASSET_PROVENANCE.md) for the snapshot comparison and outstanding checks.
 
 ---
 
