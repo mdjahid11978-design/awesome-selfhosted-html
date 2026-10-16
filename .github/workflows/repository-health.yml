@@ -19,119 +19,23 @@ concurrency:
 jobs:
   audit:
     name: Documentation and generated-site integrity
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Audit maintainer documentation and local HTML references
-        shell: bash
-        run: |
-          python3 <<'PY'
-          from html.parser import HTMLParser
-          from pathlib import Path
-          from urllib.parse import unquote, urlsplit
-          import os
+      - name: Run offline audit unit tests
+        run: python3 -m unittest discover -s tests -v
 
-          root = Path(".").resolve()
-          required = [
-              "README.md",
-              "BRANDING.md",
-              "JAHIDS_AI_ALIGNMENT.md",
-              "MAINTENANCE.md",
-              "LICENSES.md",
-              "THIRD_PARTY_NOTICES.md",
-              "ASSET_PROVENANCE.md",
-              "index.html",
-          ]
-          missing = [name for name in required if not (root / name).is_file()]
-          doc_text = "\n".join(
-              (root / name).read_text(encoding="utf-8", errors="replace")
-              for name in ["README.md", "BRANDING.md", "JAHIDS_AI_ALIGNMENT.md"]
-              if (root / name).is_file()
-          )
-          identity_ok = (
-              "JAHIDS.AI Sovereign AI Platform" in doc_text
-              and "Built by Jahid" in doc_text
-          )
-
-          class RefParser(HTMLParser):
-              def __init__(self):
-                  super().__init__(convert_charrefs=True)
-                  self.refs = []
-              def handle_starttag(self, tag, attrs):
-                  attrs = dict(attrs)
-                  for key in ("href", "src", "poster"):
-                      value = attrs.get(key)
-                      if value:
-                          self.refs.append(value.strip())
-
-          html_files = list(root.rglob("*.html"))
-          ignored_dirs = {".git", ".github"}
-          html_files = [
-              p for p in html_files
-              if not any(part in ignored_dirs for part in p.relative_to(root).parts)
-          ]
-          broken = []
-          checked = 0
-          for html_file in html_files:
-              parser = RefParser()
-              try:
-                  parser.feed(html_file.read_text(encoding="utf-8", errors="replace"))
-              except OSError as exc:
-                  broken.append(f"{html_file.relative_to(root)}: could not read: {exc}")
-                  continue
-              for ref in parser.refs:
-                  parts = urlsplit(ref)
-                  if parts.scheme or parts.netloc or ref.startswith(("#", "//")):
-                      continue
-                  path = unquote(parts.path)
-                  if not path:
-                      continue
-                  checked += 1
-                  if path.startswith("/"):
-                      target = (root / path.lstrip("/")).resolve()
-                  else:
-                      target = (html_file.parent / path).resolve()
-                  if not target.is_relative_to(root):
-                      broken.append(f"{html_file.relative_to(root)}: reference escapes repository: {ref}")
-                  elif not target.exists():
-                      broken.append(f"{html_file.relative_to(root)}: missing local target: {ref}")
-
-          report = [
-              "# Repository health audit",
-              "",
-              f"- Required files: {'PASS' if not missing else 'FAIL'}",
-              f"- Canonical maintainer identity: {'PASS' if identity_ok else 'FAIL'}",
-              f"- HTML files inspected: {len(html_files)}",
-              f"- Local references inspected: {checked}",
-              f"- Missing or unsafe local references: {len(broken)}",
-              "",
-              "## Missing required files",
-              *([f"- {x}" for x in missing] or ["- None"]),
-              "",
-              "## Local reference findings (first 200)",
-              *([f"- {x}" for x in broken[:200]] or ["- None found"]),
-              "",
-              "External URLs, anchor targets, browser rendering, third-party licences, and security vulnerabilities are not verified by this workflow.",
-              "Generated HTML and inherited assets are never automatically rewritten; findings require review against upstream source and provenance.",
-          ]
-          text = "\n".join(report) + "\n"
-          Path("repository-health-report.md").write_text(text, encoding="utf-8")
-          summary = os.environ.get("GITHUB_STEP_SUMMARY")
-          if summary:
-              with open(summary, "a", encoding="utf-8") as f:
-                  f.write(text)
-          if missing or not identity_ok:
-              raise SystemExit("Required repository documentation or canonical branding check failed.")
-          PY
+      - name: Audit local references, anchors, and external URLs
+        run: python3 scripts/repository_health_audit.py --root . --report repository-health-report.md --json-report repository-health-report.json --check-external --max-external 80
 
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: repository-health-report
-          path: repository-health-report.md
+          path: |\n            repository-health-report.md\n            repository-health-report.json
           if-no-files-found: warn
           retention-days: 30
