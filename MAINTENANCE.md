@@ -29,8 +29,8 @@ This guide is operational documentation, not legal advice. See [LICENSES.md](./L
 
 ## Automated repository health audit
 
-The GitHub Actions workflow at `.github/workflows/repository-health.yml` checks that maintainer documentation is present, verifies the canonical JAHIDS.AI attribution, and records missing or unsafe relative references in generated HTML. It runs on pushes to `gh-pages`, pull requests targeting `gh-pages`, weekly, and on manual dispatch. The report is retained as a workflow artifact for 30 days.
+The GitHub Actions workflow at `.github/workflows/repository-health.yml` runs offline unit tests and invokes `scripts/repository_health_audit.py`. It checks required maintainer documentation, canonical JAHIDS.AI attribution, local file references, same-page and cross-page HTML anchors, and a bounded set of external URLs with timeouts and rate limiting. It runs on pushes to `gh-pages`, pull requests targeting `gh-pages`, weekly, and on manual dispatch. Markdown and JSON reports are retained as workflow artifacts for 30 days.
 
-This audit is intentionally non-destructive: it does not rewrite generated HTML, change upstream assets, or infer licences. It does not validate external URL availability, in-page anchors, browser rendering, security vulnerabilities, or per-file rights. Review its findings before making changes.
+This audit is intentionally non-destructive: it does not rewrite generated HTML, change upstream assets, or infer licences. External responses may be blocked or rate-limited, so status codes are triage evidence rather than conclusive proof of a dead link. Browser rendering, security vulnerabilities, and per-file rights still require separate review.
 
 When regenerating the site, preserve `.github/workflows/repository-health.yml` alongside this fork's maintainer documentation. A successful workflow run is evidence only for the checks it actually executes.
