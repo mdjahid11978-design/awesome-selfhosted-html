@@ -26,3 +26,11 @@ The catalogue/list is identified upstream as CC BY-SA 3.0. Do not assume that ev
 ## Scope
 
 This guide is operational documentation, not legal advice. See [LICENSES.md](./LICENSES.md), [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md), and [ASSET_PROVENANCE.md](./ASSET_PROVENANCE.md).
+
+## Automated repository health audit
+
+The GitHub Actions workflow at `.github/workflows/repository-health.yml` checks that maintainer documentation is present, verifies the canonical JAHIDS.AI attribution, and records missing or unsafe relative references in generated HTML. It runs on pushes to `gh-pages`, pull requests targeting `gh-pages`, weekly, and on manual dispatch. The report is retained as a workflow artifact for 30 days.
+
+This audit is intentionally non-destructive: it does not rewrite generated HTML, change upstream assets, or infer licences. It does not validate external URL availability, in-page anchors, browser rendering, security vulnerabilities, or per-file rights. Review its findings before making changes.
+
+When regenerating the site, preserve `.github/workflows/repository-health.yml` alongside this fork's maintainer documentation. A successful workflow run is evidence only for the checks it actually executes.
