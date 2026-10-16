@@ -36,6 +36,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: repository-health-report
-          path: |\n            repository-health-report.md\n            repository-health-report.json
+          path: |
+            repository-health-report.md
+            repository-health-report.json
           if-no-files-found: warn
           retention-days: 30
