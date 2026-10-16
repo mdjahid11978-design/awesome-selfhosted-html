@@ -17,13 +17,13 @@ class RepositoryHealthAuditTests(unittest.TestCase):
                 self.write(root, name, "JAHIDS.AI Sovereign AI Platform\nBuilt by Jahid\n")
             for name in ("MAINTENANCE.md", "LICENSES.md", "THIRD_PARTY_NOTICES.md", "ASSET_PROVENANCE.md"):
                 self.write(root, name, "docs")
-            self.write(root, "index.html", '<a href="missing.html">missing</a><a href="page.html#ok">ok</a>')
+            self.write(root, "index.html", '<a href="missing.html">missing</a><a href="page.html#ok">ok</a><a href="#no-such-id">bad anchor</a>')
             self.write(root, "page.html", '<h1 id="ok">ok</h1>')
             report, markdown = audit(root)
             self.assertEqual(report["required_files"]["status"], "PASS")
             self.assertEqual(report["canonical_identity"]["status"], "PASS")
             self.assertTrue(any("MISSING LOCAL TARGET" in x for x in report["findings"]))
-            self.assertNotIn("MISSING LOCAL ANCHOR", markdown)
+            self.assertIn("MISSING LOCAL ANCHOR", markdown)
 
     def test_detects_unsafe_path_escape(self):
         with tempfile.TemporaryDirectory() as temp:
