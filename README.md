@@ -1,60 +1,63 @@
 # Awesome-Selfhosted HTML
 
-A GitHub Pages publication of the [Awesome-Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) catalogue.
+A fork of the generated HTML publication for [Awesome-Selfhosted](https://awesome-selfhosted.net/).
 
-[**Open the published site**](https://mdjahid11978-design.github.io/awesome-selfhosted-html/)
+[**View the published site**](https://mdjahid11978-design.github.io/awesome-selfhosted-html/)
 
-## Repository details
+## Repository map
 
-- **Published site:** https://mdjahid11978-design.github.io/awesome-selfhosted-html/
-- **This fork:** https://github.com/mdjahid11978-design/awesome-selfhosted-html
-- **Upstream project:** https://github.com/awesome-selfhosted/awesome-selfhosted
-- **Published branch:** `gh-pages`
-- **Site format:** generated HTML and static assets
+| Resource | Purpose |
+| --- | --- |
+| This fork | https://github.com/mdjahid11978-design/awesome-selfhosted-html |
+| Published site | https://mdjahid11978-design.github.io/awesome-selfhosted-html/ |
+| Upstream HTML project | https://github.com/awesome-selfhosted/awesome-selfhosted-html |
+| Catalogue and project overview | https://github.com/awesome-selfhosted/awesome-selfhosted |
+| Catalogue data and contribution guidance | https://github.com/awesome-selfhosted/awesome-selfhosted-data |
+| Published branch | `gh-pages` |
 
-This repository is a fork containing a published HTML site. It is not the canonical source repository for the Awesome-Selfhosted catalogue. The published branch contains generated pages and supporting assets; changes to catalogue data or upstream source should be made through the relevant upstream project workflow.
+This repository is a **fork of the upstream HTML publication repository**. Its `gh-pages` branch contains generated HTML and static assets (including the main index, search assets, platform pages, and tag pages). It is not the authoritative source for catalogue data or the upstream site generator. The source and raw data are maintained in the upstream projects linked above.
 
-## About Awesome-Selfhosted
+## What the project contains
 
-Awesome-Selfhosted is a community-maintained list of free software network services and web applications that can be hosted on your own servers. Read the upstream README for the project scope, current contribution guidance, and authoritative catalogue information:
+The upstream Awesome-Selfhosted project catalogues free software network services and web applications that can be hosted on your own servers. This repository publishes a generated HTML view of that catalogue.
 
-- [Upstream README](https://github.com/awesome-selfhosted/awesome-selfhosted/blob/master/README.md)
-- [Upstream contribution guidance](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/CONTRIBUTING.md)
-- [Upstream authors list](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/AUTHORS)
+- Use the [published site](https://mdjahid11978-design.github.io/awesome-selfhosted-html/) to browse the generated catalogue.
+- Use the [upstream HTML project](https://github.com/awesome-selfhosted/awesome-selfhosted-html) for site-generation/source-code issues.
+- Use the [upstream catalogue](https://github.com/awesome-selfhosted/awesome-selfhosted) and [data repository](https://github.com/awesome-selfhosted/awesome-selfhosted-data) for catalogue content and contribution rules.
 
-## Licensing and attribution
+## Provenance, licensing, and third-party material
 
-The upstream README states that the **catalogue/list is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)**. See the [upstream license](https://github.com/awesome-selfhosted/awesome-selfhosted/blob/master/LICENSE) and the [license summary](https://creativecommons.org/licenses/by-sa/3.0/).
+This is a fork. It includes inherited and generated upstream content and must not be presented as wholly original work.
 
-That statement should not be interpreted as a blanket license for every file, logo, icon, embedded asset, linked project, or software entry in this generated site. Check the relevant file's notices and the applicable upstream terms before reusing material.
+The upstream catalogue README states that **the catalogue/list is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)**. See the [upstream licence](https://github.com/awesome-selfhosted/awesome-selfhosted/blob/master/LICENSE) and [Creative Commons licence terms](https://creativecommons.org/licenses/by-sa/3.0/).
 
-Please:
-- Retain required copyright, attribution, and license notices.
-- Attribute Awesome-Selfhosted and other relevant contributors when required by the applicable license.
-- Apply ShareAlike requirements to adaptations of material covered by CC BY-SA 3.0.
-- Do not claim upstream or third-party material as original work or imply endorsement by upstream maintainers.
-- Do not assume that listing a software project grants rights to that project's name, logo, source code, or other assets.
+That statement is specific to the catalogue/list; it is **not a blanket determination of the licence for every HTML file, stylesheet, script, logo, icon, font, or third-party asset**. Review the relevant upstream source, per-file notices, and applicable terms before reusing or redistributing material. The [upstream authors list](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/AUTHORS) identifies catalogue contributors.
+
+See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for the provenance and licence-review notes recorded for this fork.
+
+- Keep applicable upstream copyright and attribution notices intact.
+- Do not claim upstream or third-party work as original work or imply endorsement by upstream maintainers.
+- Follow any applicable attribution and ShareAlike requirements for material covered by CC BY-SA 3.0.
+- A catalogue entry does not grant rights to the listed project's name, logo, code, or other assets.
+- Do not add a root-level licence that purports to relicense all inherited content without a documented rights review.
 
 ## JAHIDS.AI engineering alignment
 
-[JAHIDS_AI_ALIGNMENT.md](./JAHIDS_AI_ALIGNMENT.md) records this repository's intended alignment with JAHIDS.AI engineering and governance practices. It is an additional project note—not an upstream authorization, license replacement, ownership transfer, or claim that the upstream project is part of JAHIDS.AI.
+[JAHIDS_AI_ALIGNMENT.md](./JAHIDS_AI_ALIGNMENT.md) records this fork's intended alignment with JAHIDS.AI engineering and governance practices. It is an additional engineering note; it does not change the upstream identity, transfer third-party rights, replace applicable licences, or imply that the upstream project is owned by JAHIDS.AI.
 
-Changes should preserve upstream identity and history, distinguish original modifications from inherited/generated content, avoid committing secrets, and report test and deployment results only when supported by evidence.
+## Safe maintenance workflow
 
-## Working on this repository
+1. Inspect the relevant upstream repository and current generated output before changing files.
+2. Prefer fixing source or data in the upstream project and regenerating the site over manually editing generated HTML.
+3. Keep fork-specific changes small, reviewable, and clearly distinguished from inherited content.
+4. Preserve attribution and notices; never commit credentials, tokens, or other secrets.
+5. Review the diff and validate links and generated assets where tooling is available.
+6. Verify the GitHub Pages deployment after publication and report only checks that actually ran.
 
-1. Inspect the relevant branch, existing files, and upstream source before editing.
-2. Make small, reviewable changes and preserve attribution and license notices.
-3. If modifying generated output, identify and update the appropriate source/build process where possible; avoid hand-editing generated files as a substitute for fixing their source.
-4. Run the applicable generation, link, and site checks when the required tooling and source are available.
-5. Review the diff and verify the published result after deployment.
+## Verification notes
 
-For catalogue contributions, follow the [upstream contribution guidance](https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/CONTRIBUTING.md).
-
-## Verification status
-
-This README documents the repository structure and upstream references. It does **not** claim that the full site has been rebuilt, tested, security-audited, or redeployed as part of this documentation change.
+This repository is a generated-site publication. A successful GitHub Pages deployment confirms that GitHub Pages processed and published the branch; it does not, by itself, prove that the catalogue content is current, all links work, every asset's licence has been reviewed, or the site has passed a security audit.
 
 ---
 
-Maintained in this fork by its repository owner and contributors; upstream project authorship and licensing remain with their respective rightsholders.
+This README documents the fork and its relationship to upstream projects. Upstream authorship, third-party rights, and applicable licences remain with their respective rightsholders.
