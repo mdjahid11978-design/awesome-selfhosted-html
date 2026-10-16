@@ -73,7 +73,12 @@ def audit(root: Path, check_external: bool = False, max_external: int = 80):
     external_urls = set()
     for file, parser in parsed.items():
         for ref in parser.references:
-            if not ref or ref.startswith(("#", "javascript:", "mailto:", "tel:", "data:")):
+            if not ref or ref.startswith(("javascript:", "mailto:", "tel:", "data:")):
+                continue
+            if ref.startswith("#"):
+                anchor = unquote(ref[1:])
+                if anchor and anchor not in parser.ids:
+                    findings.append(f"MISSING LOCAL ANCHOR: {file.relative_to(root)} -> {ref}")
                 continue
             parts = urlsplit(ref)
             if parts.scheme.lower() in ("http", "https"):
