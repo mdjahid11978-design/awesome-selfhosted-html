@@ -21,11 +21,13 @@ IDENTITY = ("JAHIDS.AI Sovereign AI Platform", "Built by Jahid")
 
 class ReferenceParser(HTMLParser):
     def __init__(self):
+        """Initialize the parser's collected references and element ids."""
         super().__init__(convert_charrefs=True)
         self.references: list[str] = []
         self.ids: set[str] = set()
 
     def handle_starttag(self, tag, attrs):
+        """Record referenced URLs and element ids found on a start tag."""
         attrs = dict(attrs)
         for key in ("href", "src", "poster", "data"):
             value = attrs.get(key)
@@ -38,12 +40,14 @@ class ReferenceParser(HTMLParser):
 
 
 def collect_html(root: Path):
+    """Return a sorted list of HTML files under root, skipping ignored dirs."""
     ignored = {".git", ".github", ".venv", "node_modules"}
     return sorted(p for p in root.rglob("*.html")
                   if not any(part in ignored for part in p.relative_to(root).parts))
 
 
 def audit(root: Path, check_external: bool = False, max_external: int = 80):
+    """Run the read-only repository health audit and return (report, markdown)."""
     findings: list[str] = []
     missing = [name for name in REQUIRED if not (root / name).is_file()]
     for name in missing:
@@ -168,6 +172,7 @@ def audit(root: Path, check_external: bool = False, max_external: int = 80):
 
 
 def main():
+    """Parse CLI arguments, run the audit, and write/print the reports."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--report", type=Path, default=Path("repository-health-report.md"))
